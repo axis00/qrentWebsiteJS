@@ -1,0 +1,24 @@
+{
+  "name": "qrentservices",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axis00/qrentWebsiteJS.git"
+  },
+  "author": "qrentteam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axis00/qrentWebsiteJS/issues"
+  },
+  "homepage": "https://github.com/axis00/qrentWebsiteJS#readme",
+  "dependencies": {
+    "cookie": "^0.3.1",
+    "formidable": "^1.2.1",
+    "node-session": "^1.2.1"
+  }
+}
