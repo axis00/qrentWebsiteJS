@@ -64,26 +64,16 @@ function handleGet(request,response){
 
 	var url = request.url;
 
+	if(url.match(/.*\.(.*)$/)){
+		console.log("server file");
+	}
+
 	switch(url){
 
 			case '/':
 
-				response.writeHead(200, {'Content-Type': 'text/html'});
-				response.write("<html>");
-				fs.readFile("homepagebody.html",function(err,data){
-					response.write("<body>");
-
-					if(request.session.has('user')){
-						response.write("<p>Welcome " + request.session.get('user') + "</p>");
-						console.log("has user");
-					}else{
-						response.write(data);
-						console.log("has no user");
-					}
-
-					response.write("</body>")
-					response.end("</html>");
-				});
+				serveHomePage(request,response);
+				
 				break;
 
 			case '/register':
@@ -114,6 +104,29 @@ function handleGet(request,response){
 				response.end("<html><body>404</body></html>");
 
 	}
+
+}
+
+function serveHomePage(request,response){
+	response.writeHead(200, {'Content-Type': 'text/html'});
+	response.write("<html>");
+	fs.readFile("homepagebody.html",function(err,data){
+		response.write("<body>");
+
+		if(request.session.has('user')){
+			response.write("<p>Welcome " + request.session.get('user') + "</p>");
+			console.log("has user");
+		}else{
+			response.write(data);
+			console.log("has no user");
+		}
+
+		response.write("</body>")
+		response.end("</html>");
+	});
+}
+
+function serveFile(request,response){
 
 }
 
