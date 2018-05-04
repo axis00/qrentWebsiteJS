@@ -149,17 +149,23 @@ function handleLogin(request,response){
 		
 		conn.query(sql,[fields.username,fields.password],(err,res,resfields) => {
 
-			if(res.length === 1 && res[0].password === fields.password && res[0].username === fields.username && res[0].status === approvedStr){
-				request.session.put('user', fields.username);
-				response.writeHead(200,{'Content-Type' : 'text/plain'})
-				response.end("1_authenticated");
-			}else if(res[0].status != approvedStr){
-				response.writeHead(200,{'Content-Type' : 'text/plain'})
-				response.end("unapproved");
+			console.log(res);
+
+			if(res.length != 0){
+				if(res.length === 1 && res[0].password === fields.password && res[0].username === fields.username && res[0].status === approvedStr){
+					request.session.put('user', fields.username);
+					response.writeHead(200,{'Content-Type' : 'text/plain'})
+					response.end("1_authenticated");
+				}else if(res[0].status != approvedStr){
+					response.writeHead(200,{'Content-Type' : 'text/plain'})
+					response.end("unapproved");
+				}
 			}else{
-				response.writeHead(200,{'Content-Type' : 'text/plain'})
-				response.end("0_unauthenticated");
+					response.writeHead(200,{'Content-Type' : 'text/plain'})
+					response.end("0_unauthenticated");
 			}
+
+			
 			
 
 		});
