@@ -4,10 +4,21 @@ var formidable = require("formidable");
 var util = require("util");
 var fs = require("fs");
 var mysql = require("mysql");
+var url = require("url");
+var path = require("path");
 
 var session = new nodeSession({'secret' : 'Q3UBzdH9GEfiRCTKbi5MTPyChpzXLsTD' , 'lifetime' : 300000});
 
 var homeUrl = "localhost:8080";
+
+var mimeTypes = {
+	"html": "text/html",
+	"jpeg": "image/jpeg",
+	"jpg": "image/jpeg",
+	"png": "image/png",
+	"js": "text/javascript",
+	"css": "text/css"
+};
 
 var conn = mysql.createConnection({
 	host: "qrentdb.cqmw41ox1som.ap-southeast-1.rds.amazonaws.com",
@@ -65,44 +76,45 @@ function handleGet(request,response){
 	var url = request.url;
 
 	if(url.match(/.*\.(.*)$/)){
-		console.log("server file");
-	}
+		console.log("file");
+		serveFile(request,response);
+	} else {
+		switch(url){
 
-	switch(url){
+				case '/':
 
-			case '/':
+					serveHomePage(request,response);
+					
+					break;
 
-				serveHomePage(request,response);
-				
-				break;
+				case '/register':
+					fs.readFile("html/register.html",function(err,data){
+					
+						if(request.session.get('user')){
+							redirect(homeUrl,response);
+						}else{
+							response.writeHead(200, {'Content-Type': 'text/html'});
+							response.write("<html>");
+							response.write("<body>");
+							response.write(data);
+							response.write("</body>")
+							response.end("</html>");
+						}
+					});
+					break;
 
-			case '/register':
-				fs.readFile("html/register.html",function(err,data){
-				
-					if(request.session.get('user')){
-						redirect(homeUrl,response);
-					}else{
-						response.writeHead(200, {'Content-Type': 'text/html'});
-						response.write("<html>");
-						response.write("<body>");
-						response.write(data);
-						response.write("</body>")
-						response.end("</html>");
-					}
-				});
-				break;
+				case '/logout':
 
-			case '/logout':
+					request.session.flush();
+					redirect(homeUrl,response);
 
-				request.session.flush();
-				redirect(homeUrl,response);
+					break;
 
-				break;
+				default:
+					response.writeHead(404, {'Content-Type': 'text/html'});
+					response.end("<html><body>404</body></html>");
 
-			default:
-				response.writeHead(404, {'Content-Type': 'text/html'});
-				response.end("<html><body>404</body></html>");
-
+		}
 	}
 
 }
@@ -115,10 +127,10 @@ function serveHomePage(request,response){
 
 		if(request.session.has('user')){
 			response.write("<p>Welcome " + request.session.get('user') + "</p>");
-			console.log("has user");
+			
 		}else{
 			response.write(data);
-			console.log("has no user");
+			
 		}
 
 		response.write("</body>")
@@ -127,6 +139,18 @@ function serveHomePage(request,response){
 }
 
 function serveFile(request,response){
+
+	var uri = url.parse(request.url).pathname;
+    var filename = path.join(process.cwd(), uri);
+
+	var mime = mimeTypes[path.extname(filename).split(".")[1]];
+
+	fs.readFile(filename,(err,data) => {
+		if(!err){
+			response.writeHead(200,{'Content-Type': mime});
+			response.end(data);
+		}
+	});
 
 }
 
@@ -153,7 +177,7 @@ function handleRegister(request,response){
 
 		});
 
-	}
+	};
 
 }
 
