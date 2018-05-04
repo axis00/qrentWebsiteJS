@@ -157,7 +157,8 @@ function serveFile(request,response){
 function handleLogin(request,response){
 	var form = new formidable.IncomingForm();
 	form.parse(request, function(err,fields,files){
-		//TODO validate user
+        var verify = "SELECT * FROM users"
+        // TODO verify login
 		request.session.put('user',fields.username);
 
 		redirect(homeUrl,response);
@@ -174,7 +175,19 @@ function handleRegister(request,response){
 		form.parse(request, function(err,fields,files){
 
 			var username = fields.username;
-
+            var password = fields.password;
+            var email = fields.email;
+            var fname = fields.fname;
+            var lname = fields.lname;
+            
+            var sql = "INSERT INTO users(username,password,type,firstname,lastname,email,status) VALUES (?)";
+            
+            var val = [[username,password,'Service Provider',fname,lname,email,'pending']];
+            
+            conn.query(sql,val,(err,res,fields) => {
+                console.log(res);
+                
+            });
 		});
 
 	};
