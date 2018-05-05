@@ -7,7 +7,7 @@ var mysql = require("mysql");
 var url = require("url");
 var path = require("path");
 
-var session = new nodeSession({'secret' : 'Q3UBzdH9GEfiRCTKbi5MTPyChpzXLsTD' , 'lifetime' : 300000});
+var session = new nodeSession({'secret' : 'Q3UBzdH9GEfiRCTKbi5MTPyChpzXLsTD' , 'lifetime' : 3600000});
 
 var homeUrl = "localhost:8080";
 
@@ -63,6 +63,10 @@ function handlePost(request,response){
 				break;
 			case '/register':
 				handleRegister(request,response);
+				break;
+			case '/postItem':
+				handleItemPost(request,response);
+				break;
 			default:
 				response.writeHead(200, {'Content-Type': 'text/plain'});
 				response.end(url);
@@ -179,7 +183,7 @@ function handleRegister(request,response){
 		redirect("localhost:8080",response);
 	}else{
 		var form = new formidable.IncomingForm();
-		form.parse(request, function(err,fields,files){
+		form.parse(request, (err,fields,files) => {
 
 			var username = fields.username;
 			var password = fields.password;
@@ -198,6 +202,57 @@ function handleRegister(request,response){
 		});
 
 	};
+
+}
+
+function handleItemPost(request,response){
+
+	if(request.session.has('user')){
+		var user = request.session.get('user');
+
+		var _files = [];
+
+		var form = formidable.IncomingForm();
+		form.on('file',(field,file) => {
+			_files.push([field,file]);
+		});
+		form.parse(request, (err,fields,files) => {
+			if(!err){
+				response.writeHead(200,{'Content-Type' : 'text/plain'});
+				response.end('success');
+				for(i in _files){
+					//writes file into the database
+					fs.readFile(_files[i][1].path, (err,data) => {
+						var sql = "INSERT INTO Item(itemName,itemDescription,itemBrand,itemOwner,itemRentPrice,itemOrigPrice,itemCondition) VALUES (?)"
+						var vals = [[fields.title,'desc','brand',request.session.get('user'),20,20,'New']];
+
+						var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
+						var itemNo;
+						var imgName = _files[i][1].name;
+
+						conn.query(sql,vals,(err,res,fields) => {
+							console.log(res.insertId);
+							console.log(fields);
+							console.log(err);
+
+							itemNo = res.insertId;
+
+							conn.query(imgSql,[[data,itemNo,imgName]],(e,r,f) => {
+								console.log(res);
+							});
+
+						});
+
+					});
+				}
+			}
+
+		});
+
+	}else{
+		response.writeHead(401);
+		response.end();
+	}
 
 }
 
