@@ -82,7 +82,9 @@ function handleGet(request,response){
 	if(url.match(/.*\.(.+)$/)){
 		console.log(url);
 		serveFile(request,response);
-	} else {
+	} else if(url.match(/^(\/image\?).*/)){
+		serveImage(request,response);
+	}else {
 		switch(url){
 
 				case '/':
@@ -115,7 +117,7 @@ function serveHomePage(request,response){
 
 		if(request.session.has('user')){
 			response.write("<p>Welcome " + request.session.get('user') + "</p>");
-			
+			showItems(request.session.get('user'));
 		}else{
 			response.write(data);
 			
@@ -123,6 +125,56 @@ function serveHomePage(request,response){
 
 		response.write("</body>")
 		response.end("</html>");
+	});
+}
+
+function showItems(itemOwner){
+	var sql = "SELECT itemno,itemName,itemDescription,itemBrand,itemOwner,itemRentPrice,itemOrigPrice,itemCondition,itemimageid FROM qrent.Item NATURAL JOIN qrent.ItemImage WHERE itemOwner = ?";
+	var val = [itemOwner];
+
+	console.log('making query');
+
+	conn.query(sql,val,(err,res,fields) => {
+		console.log(res[0]);
+		console.log(err);
+	});
+}
+
+function Item(row){
+	this.itemName = row.itemName;
+	this.itemDescription = row.itemDescription;
+	this.itemBrand = row.itemBrand;
+	this.itemRentPrice = row.itemRentPrice;
+	this.itemNumber = row.itemno;
+	this.itemCondition = row.itemCondition;
+	this.render = function(){
+		var html = "<div>"+
+				"<p class = 'item-title'>" + this.itemName + "<p>" +
+				"<p class = 'item-desc'>" + this.itemDescription + "<p>" +
+				"<p class = 'item-brand'>" + this.itemBrand + "<p>" +
+				"<p class = 'item-price-r'>" + this.itemRentPrice + "<p>" +
+			"</div>";
+
+		return html;
+	}
+}
+
+function serveImage(request,response){
+	var imageId = url.parse(request.url,true).query.img;
+	console.log(imageId);
+
+	var sql = "SELECT * FROM qrent.ItemImage WHERE itemimageid = ?"
+
+	conn.query(sql,[imageId],(err,res,fields) => {
+		if(!err && res.length > 0){
+			var type = mimeTypes[res[0].imageName.split(".").pop()];
+			response.writeHead(200,{'Content-Type' : type});;
+			response.end(res[0].imagefile);
+		}else{
+			console.log(err);
+			response.writeHead(404,{'Content-Type' : 'text/plain'});
+			response.end('404');
+		}
 	});
 }
 
@@ -170,8 +222,6 @@ function handleLogin(request,response){
 			}
 
 			
-			
-
 		});
 
 	});
@@ -218,34 +268,37 @@ function handleItemPost(request,response){
 		});
 		form.parse(request, (err,fields,files) => {
 			if(!err){
-				response.writeHead(200,{'Content-Type' : 'text/plain'});
-				response.end('success');
-				for(i in _files){
-					//writes file into the database
-					fs.readFile(_files[i][1].path, (err,data) => {
-						var sql = "INSERT INTO Item(itemName,itemDescription,itemBrand,itemOwner,itemRentPrice,itemOrigPrice,itemCondition) VALUES (?)"
-						var vals = [[fields.title,'desc','brand',request.session.get('user'),20,20,'New']];
 
-						var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
-						var itemNo;
-						var imgName = _files[i][1].name;
+				var sql = "INSERT INTO Item(itemName,itemDescription,itemBrand,itemOwner,itemRentPrice,itemOrigPrice,itemCondition) VALUES (?)"
+				var vals = [[fields.title,'desc','brand',request.session.get('user'),20,20,'New']];
+				var itemNo;
 
-						conn.query(sql,vals,(err,res,fields) => {
-							console.log(res.insertId);
-							console.log(fields);
-							console.log(err);
+				conn.query(sql,vals,(err,res,fields) => {
+					console.log(res.insertId);
+					console.log(fields);
+					console.log(err);
 
-							itemNo = res.insertId;
+					itemNo = res.insertId;
+					for(i in _files){
+						//writes file into the database
+						fs.readFile(_files[i][1].path, (err,data) => {
+
+							var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
+							var imgName = _files[i][1].name;
 
 							conn.query(imgSql,[[data,itemNo,imgName]],(e,r,f) => {
-								console.log(res);
+								console.log(r);
+								console.log(e);
 							});
 
 						});
+					}
+				});
 
-					});
-				}
 			}
+
+			response.writeHead(200,{'Content-Type' : 'text/plain'});
+			response.end('success');
 
 		});
 
