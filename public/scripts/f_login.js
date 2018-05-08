@@ -13,7 +13,7 @@ $(document).ready(function(){
 					window.location.replace(homeurl);
 				}else if(data == 'unapproved'){
 					alert('pending account');
-					//TODO handle this properly
+					//TODO handle this stylize
 				}else{
 					alert('login failed');
 					//TODO handle this properly
