@@ -67,6 +67,9 @@ function handlePost(request,response){
 			case '/postItem':
 				handleItemPost(request,response);
 				break;
+			case '/getItems':
+				serveItems(request,response);
+				break;
 			default:
 				response.writeHead(200, {'Content-Type': 'text/plain'});
 				response.end(url);
@@ -100,12 +103,63 @@ function handleGet(request,response){
 
 					break;
 
+				case '/getItems':
+					serveItems(request,response);
+					break;
+
 				default:
 					response.writeHead(404, {'Content-Type': 'text/html'});
 					response.end("<html><body>404</body></html>");
 
 		}
 	}
+
+}
+
+function serveItems(request,response){
+	console.log("serving itesm");
+
+	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ?";
+	var val = [request.session.get('user')];
+
+	var items = [];
+
+	console.log('making query');
+
+	conn.query(sql,val,(err,res,fields) => {
+
+		if(!err){
+			for(i in res){
+				items[i] = new Item(res[i]);
+			}
+
+			var imgSql = "SELECT itemimageid FROM qrent.ItemImage WHERE itemno = ?";
+
+			for(i in items)((i) => {
+
+				conn.query(imgSql,[items[i].itemNumber],(err,res,fields) => {
+					for(j in res){
+						items[i].images[j] = res[j].itemimageid;
+					}
+
+					if(i == items.length - 1){
+						console.log('end');
+						console.log(items);
+						response.writeHead(200,{'Content-Type' : 'application/json'});
+						response.end(JSON.stringify(items));
+					}
+
+				});
+
+			})(i);
+
+		}else{
+			response.writeHead(501);
+			response.end();
+			console.log(err);
+		}
+
+	});
 
 }
 
@@ -117,7 +171,6 @@ function serveHomePage(request,response){
 
 		if(request.session.has('user')){
 			response.write("<p>Welcome " + request.session.get('user') + "</p>");
-			showItems(request.session.get('user'));
 		}else{
 			response.write(data);
 			
@@ -128,18 +181,6 @@ function serveHomePage(request,response){
 	});
 }
 
-function showItems(itemOwner){
-	var sql = "SELECT itemno,itemName,itemDescription,itemBrand,itemOwner,itemRentPrice,itemOrigPrice,itemCondition,itemimageid FROM qrent.Item NATURAL JOIN qrent.ItemImage WHERE itemOwner = ?";
-	var val = [itemOwner];
-
-	console.log('making query');
-
-	conn.query(sql,val,(err,res,fields) => {
-		console.log(res[0]);
-		console.log(err);
-	});
-}
-
 function Item(row){
 	this.itemName = row.itemName;
 	this.itemDescription = row.itemDescription;
@@ -147,16 +188,7 @@ function Item(row){
 	this.itemRentPrice = row.itemRentPrice;
 	this.itemNumber = row.itemno;
 	this.itemCondition = row.itemCondition;
-	this.render = function(){
-		var html = "<div>"+
-				"<p class = 'item-title'>" + this.itemName + "<p>" +
-				"<p class = 'item-desc'>" + this.itemDescription + "<p>" +
-				"<p class = 'item-brand'>" + this.itemBrand + "<p>" +
-				"<p class = 'item-price-r'>" + this.itemRentPrice + "<p>" +
-			"</div>";
-
-		return html;
-	}
+	this.images = [];
 }
 
 function serveImage(request,response){
@@ -279,7 +311,7 @@ function handleItemPost(request,response){
 					console.log(err);
 
 					itemNo = res.insertId;
-					for(i in _files){
+					for(i in _files)((i) => {
 						//writes file into the database
 						fs.readFile(_files[i][1].path, (err,data) => {
 
@@ -292,7 +324,7 @@ function handleItemPost(request,response){
 							});
 
 						});
-					}
+					})(i);
 				});
 
 			}
