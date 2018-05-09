@@ -70,6 +70,9 @@ function handlePost(request,response){
 			case '/getItems':
 				serveItems(request,response);
 				break;
+            case '/deleteItem':
+				deleteItem(request,response);
+				break;
 			default:
 				response.writeHead(200, {'Content-Type': 'text/plain'});
 				response.end(url);
@@ -159,6 +162,34 @@ function serveItems(request,response){
 			console.log(err);
 		}
 
+	});
+
+}
+
+function deleteItem(request,response){
+
+	var form = formidable.IncomingForm();
+	form.parse(request,(err,fields,files) => {
+		if(!err){
+			var itemNo = fields.itemToDelete;
+			var sql = "DELETE FROM qrent.items WHERE itemno = ?"
+
+			conn.query(sql,[itemNo], (e,r,f) => {
+
+				if(!err){
+					response.writeHead(200,{'Content-Type' : 'text/plain'});
+					response.end(itemNo);
+				}else{
+					response.writeHead(500);
+					response.end();
+				}
+
+			});
+
+		}else{
+			response.writeHead(500);
+			response.end();
+		}
 	});
 
 }

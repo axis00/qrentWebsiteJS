@@ -9,7 +9,6 @@ $(document).ready(function () {
             type: 'POST',
             success: function(data){
                 console.log(data);
-                console.log(data[0].itemName);
                 console.log('done');
                 for(var i = 0; i < data.length; i++){
                     var itemCont = $('<div>');
@@ -19,6 +18,18 @@ $(document).ready(function () {
                     var itemBrandTitle = $('<p>');
                     var itemRPTitle = $('<p>');
                     var itemNumberTitle = $('<p>');
+                    
+                    var deleteButton = $('<form>');
+                    deleteButton.on('submit',function(evnt){
+                        evnt.preventDefault();
+                        console.log('calles');
+                    });
+                    
+                    itemCont.attr('id', data[i].itemNumber);
+                    deleteButton.html('<input name = "itemToDelete" type = "hidden" value = ' + data[i].itemNumber + '>' +
+                                        '<input type = "submit" value = "delete">'
+                                     );
+                    deleteButton.attr('class', 'deleteForm');
                     itemNameTitle.html(data[i].itemName);
                     itemDescTitle.html(data[i].itemDescription);
                     itemBrandTitle.html(data[i].itemBrand);
@@ -30,17 +41,19 @@ $(document).ready(function () {
                     itemCont.append(itemBrandTitle);
                     itemCont.append(itemRPTitle);
                     itemCont.append(itemNumberTitle);
+                    itemCont.append(deleteButton);
                     
-                    for(var j = 0; j < data[i].images.length; j++){
-//                        //image?img=4
-                        var imgTag = $('<img>');
-                        imgTag.attr('src', '/image?img=' + data[i].images);
-                        imgCont.append(imgTag);
-                    }
+//                    for(var j = 0; j < data[i].images.length; j++){
+//                        var imgTag = $('<img>');
+//                        imgTag.attr('src', '/image?img=' + data[i].images[j]);
+//                        imgCont.append(imgTag);
+//                    }
                     
+                    //itemCont.append(imgCont)
                     cont.append(itemCont);
                     }
                 }
         });
     });
+    
 });
