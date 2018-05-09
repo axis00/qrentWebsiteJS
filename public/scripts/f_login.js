@@ -24,7 +24,3 @@ $(document).ready(function(){
 	});
 
 });
-
-function handleData(){
-    
-}
