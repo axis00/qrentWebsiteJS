@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <title>Qrent</title>
+		<link rel="stylesheet" type="text/css" href="../styles/style.css">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script src="../scripts/f_login.js"></script>
 	</head>
 	<body>
+        <div class = loginContainer>
 		<form id = "loginform" action="/login" method="POST">
-			<input name = "username" type="text" placeholder="username">
-			<input name = "password" type="password" placeholder="password">
-			<input type = "submit" value="login">
+            <div class = fieldContainer>
+                <p id = "loginTag">Login</p>
+                <input name = "username" type="text" placeholder="username" class = loginField>
+                <input name = "password" type="password" placeholder="password" class = loginField>
+            </div>
+			<input type = "submit" value="login" id = "button">
 		</form>
+        </div>
 	</body>
 </html>
