@@ -1,0 +1,24 @@
+.formcont{
+	padding: 1vh;
+	display: grid;
+	grid-template-rows: 100%;
+	grid-template-columns: 50% 50%;
+	width: 80%;
+	font-family: sans-serif;
+}
+
+.formcont input{
+	margin: 1vh;
+	padding: 1vh;
+	font-size: 1em;
+	width: 90%;
+}
+
+input[type=submit]{
+	margin: 0 auto;
+	display: block;
+}
+
+.formcont div{
+	padding: 1vh;
+}
