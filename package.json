@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/axis00/qrentWebsiteJS#readme",
   "dependencies": {
+    "bootstrap": "^4.1.1",
     "client-sessions": "^0.8.0",
     "cookie": "^0.3.1",
     "cookies": "^0.7.1",
