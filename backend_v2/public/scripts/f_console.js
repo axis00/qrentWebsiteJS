@@ -65,7 +65,7 @@ function loaditems(lower,upper) {
                 
                 itemCont.attr('id', data[i].itemNumber);
                 deleteForm.html('<input name = "itemToDelete" type = "hidden" value = ' + data[i].itemNumber + '>' +
-                                    '<input type = "submit" value = "delete" class="btn btn-danger">'
+                                    '<input type = "submit" value = "Delete" class="btn btn-danger">'
                                  );
                 deleteForm.attr('class', 'deleteForm');
                 itemNameTitle.html(data[i].itemName);
