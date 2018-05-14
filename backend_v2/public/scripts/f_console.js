@@ -18,7 +18,7 @@ function loaditems(lower,upper) {
             console.log(data);
             console.log('done');
             for(var i = 0; i < data.length; i++){
-                var itemCont = $('<div>');
+                var itemCont = $('<div ="jumbotron">');
                 var imgCont = $('<div>');
                 var itemNameTitle = $('<p>');
                 var itemDescTitle = $('<p>');
