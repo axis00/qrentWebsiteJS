@@ -1,4 +1,4 @@
-var homeurl = "http://localhost:8080";
+var homeurl = "http://localhost:8000";
 
 $(document).ready(function(){
 	

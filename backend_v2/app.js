@@ -41,6 +41,43 @@ app.get('/',(request,response) => {
 
 });
 
+app.get('/login',(request,response) => {
+	if(!request.session.user){
+		response.sendFile(path.join(__dirname +'/public/html/login.html'));
+	}else{	
+		response.redirect('/');
+	}
+});
+
+app.post('/login',(request,response) => {
+	if(!request.session.user){
+		services.auth(request.fields['username'],request.fields['password'], (err,stat) => {
+
+			if(!err){
+				if(stat === "approved"){
+					request.session.user = request.fields['username'];
+					response.writeHead(200,{'Content-Type' : 'text/plain'})
+					response.end("1_authenticated");
+				}else{
+					response.writeHead(200,{'Content-Type' : 'text/plain'})
+					response.end("unapproved");
+				}
+			}else{
+				response.writeHead(200,{'Content-Type' : 'text/plain'})
+				response.end("0_unauthenticated");
+			}
+
+		});
+	}else{
+		response.redirect('/');
+	}
+});
+
+app.get('/logout', (request,response) => {
+	request.session.destroy();
+	response.redirect('/');
+});
+
 app.get('/register', (request,response) => {
 	if(request.session.user){
 		response.redirect('/');
@@ -57,10 +94,34 @@ app.get('/postItem',(request,response) => {
 	}
 });
 
+app.get('/console',(request,response) => {
+	if(request.session.user){
+		response.sendFile(path.join(__dirname +'/public/html/console.html'));
+	}else{
+		response.redirect('/login');
+	}
+});
+
 app.post('/register', (request,response) => {
 	services.addUser(request.fields,function(){
 		response.end();
 	});
+});
+
+app.post('/deleteItem', (request,response) => {
+	if(request.session.user){
+		services.deleteItem(request.session.user,request.fields['itemToDelete'],(err) => {
+			if(!err){
+				response.writeHead(200,{'Content-Type' : 'text/plain'});
+				response.end("success");
+			}else{
+				response.writeHead(500);
+				response.end();
+			}
+		});
+	}else{
+		response.redirect('/login');
+	}
 });
 
 app.post('/postItem',(request,response) => {
@@ -70,8 +131,8 @@ app.post('/postItem',(request,response) => {
 		item.imgs = request.files.images;
 
 		services.addItem(request.session.user,item,function(){
-			response.writeHead(200);
-			response.end();
+			console.log('redirecting');
+			response.redirect('/console');
 		});
 
 	}else{
@@ -81,23 +142,30 @@ app.post('/postItem',(request,response) => {
 });
 
 app.get('/itemimage',(request,response) => {
-
 	services.getItemImg(request.query.i,(err,data,type) => {
 		if(!err){
 			response.writeHead(200,{'Content-Type' : mimeTypes[type]});
-			response.end(data);
+			response.end(data,'binary');
 		}else{
 			response.writeHead(404);
-			response.end();
+			response.end(data);
 		}
 	});
 
 });
 
-app.get('/items', (request,response) => {
+app.get('/console/reservations',(request,response) => {
+
+});
+
+app.get('/profile',(request,response) => {
+
+});
+
+app.post('/getItems', (request,response) => {
 	if(request.session.user){
 		var user = request.session.user;
-		services.getItems(user,(err,items) => {
+		services.getItems(user,request.fields['lowerLim'],request.fields['upperLim'],(err,items) => {
 			if(!err){
 				response.writeHead(200,{'Content-Type' : 'application/json'});
 				response.end(JSON.stringify(items));
