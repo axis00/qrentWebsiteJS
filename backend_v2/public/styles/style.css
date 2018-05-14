@@ -81,17 +81,7 @@ body{
     height: 10%;
 }
 
-#button-cell{
-    background-color: black;
-    width: 60%;
 
-}
-
-#loginHeader{
-    background-color: white;
-    width:40% ;
-    text-align: center; 
-}
 .col{
     flex: 50%;
 }
@@ -183,3 +173,28 @@ textarea {
     text-align: center;
     width: 50%;
     margin: 0 auto;
+}
+/* homepage */
+.homeContainer {
+    left: 55%;
+    top: 45%;
+    text-align: center;
+}
+
+.column {
+    top:50%;
+    text-align: center;
+}
+
+#button-cell{
+    padding-top: 10%;
+    width: 60%;
+
+}
+
+#loginHeader{
+    border-right: 2px solid black;
+    padding-top: 10%;
+    width:40% ;
+    text-align: center; 
+}
