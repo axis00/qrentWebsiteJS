@@ -32,7 +32,7 @@ body{
 .homeContainer{
     position: fixed;
     height: 40%;
-    width: 40%;
+    width: 60%;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -68,6 +68,7 @@ body{
     text-align: left;
 }
 
+
 /*Console*/
 .btn-group btn-group-lg {
     margin-bottom: 20px;
@@ -82,13 +83,26 @@ body{
 
 
 .btn-login{
-    width: 50%;
+    width: 60%;
     height: 10%;
 }
 
 #button-cell{
-    
+    background-color: black;
+    width: 60%;
 
+}
+
+#loginHeader{
+    background-color: white;
+    width:40% ;
+    text-align: center; 
+}
+.col{
+    flex: 50%;
+}
+.row{
+    
 }
 
 
