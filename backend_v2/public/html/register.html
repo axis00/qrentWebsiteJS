@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../styles/style.css">
+    </head>
 	<body>
-		<form action="/register" method="POST" >
-			<div class = "formcont">
-			    <div class="info basic">  
-			    	<p>Basic Info</p>
-			        <input type="text" name="firstName" placeholder="First Name">
+        <div class = regContainer>
+            <form action="/register" method="POST" >
+                <div class = "formcont">
+                    <div class="form-group">  
+                        <p class=signUpTag>Basic Info</p>
+                        <input type="text" name="firstName" placeholder="First Name" class="form-control">
 
-			        <input type="text" name="lastName" placeholder="Last Name">
+                        <input type="text" name="lastName" placeholder="Last Name" class="form-control">
 
-			        <input type="email" name="email" placeholder="E-mail Address">
+                        <input type="email" name="email" placeholder="E-mail Address" class="form-control">
 
-			        <input type="text" name="mobileNumber" placeholder="Mobile Number">
+                        <input type="text" name="mobileNumber" placeholder="Mobile Number" class="form-control">
 
-			        <input type="text" name="username" placeholder="Username">
+                        <input type="text" name="username" placeholder="Username" class="form-control">
 
-			        <input type="password" name="password" placeholder="Password">
+                        <input type="password" name="password" placeholder="Password" class="form-control">
 
-			    </div>
-			    <div>
-			    	<p>Birthday</p>
-		            <input type="date" name="birthday" placeholder="Birthday">
-			    
-			        <p>Address</p>
-		            <input type="text" name="street" placeholder="Street"> 
-		    
-		            <input type="text" name=" municipality" placeholder="Municipality"> 
+                    </div>
+                    <div>
+                        <p class=signUpTag>Birthday</p>
+                        <input type="date" name="birthday" placeholder="Birthday" class="form-control">
 
-		            <input type="text" name="province" placeholder="Province"> 
-		                
-		            <input type="text" name="postalCode" placeholder="Postal Code"> 
-			    </div>
+                        <p class=signUpTag>Address</p>
+                        <input type="text" name="street" placeholder="Street" class="form-control"> 
 
-		    	<input type="submit" value="Register">
+                        <input type="text" name=" municipality" placeholder="Municipality" class="form-control"> 
 
-		    </div>
+                        <input type="text" name="province" placeholder="Province" class="form-control"> 
 
-		</form>
+                        <input type="text" name="postalCode" placeholder="Postal Code" class="form-control"> 
+                    </div>
 
+                    <input type="submit" value="Register" class="btn btn-primary btn-login">
+
+                </div>
+
+            </form>
+        </div>
 	</body>
 </html>

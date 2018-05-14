@@ -2,7 +2,14 @@
 <html>
 	<body>
 		<form action = "/postItem" method="POST" enctype="multipart/form-data">
-			<input type = "text"  name = "title">
+			<input type = "text"  name = "title" placeholder="Item Name">
+            <textarea type = "text" rows = "5"  name = "description" placeholder="Description"></textarea>
+            <input type="text" name="brand" placeholder="Brand">
+            
+            <input type="Number" name="rentPrice" id = "rentPrice" placeholder="Rent Price">
+            <label for = "rentPice">PHP/Day</label>
+            <input type="Number" name="origPrice" id = "origPrice" placeholder="Original Price">
+            <label for = "origPice">PHP</label>
 			<input type = "file" name = "images" multiple = "multiple">
 			<input type = "submit" value = "post">
 		</form>

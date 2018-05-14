@@ -3,12 +3,21 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script src="../scripts/f_login.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../styles/style.css">
 	</head>
 	<body>
-		<form id = "loginform" action="/login" method="POST">
-			<input name = "username" type="text" placeholder="username">
-			<input name = "password" type="password" placeholder="password">
-			<input type = "submit" value="login">
-		</form>
+        <div class="loginContainer">
+            <form id = "loginform" action="/login" method="POST">
+                <div class="form-group">
+                    <p class ="loginTag">Login</p>
+                    <input name = "username" type="text" placeholder="username" class="form-control">
+                    <input name = "password" type="password" placeholder="password" class="form-control">
+                    
+                </div>
+                    <input type = "submit" value="login" class="btn btn-primary btn-login">
+            </form>
+            <p id=registerTag>Not yet registered? <a href = register.html>Register here.</a></p>
+        </div>
 	</body>
 </html>
