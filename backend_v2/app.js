@@ -17,6 +17,8 @@ var mimeTypes = {
 	"css": "text/css"
 };
 
+app.set('view engine','pug');
+
 app.use(session({
 	store: new FileStore, 
 	secret: 'somerandomstring',
@@ -155,14 +157,15 @@ app.get('/itemimage',(request,response) => {
 });
 
 app.get('/console/reservations',(request,response) => {
-
+	response.render('reservations',{avar : 'woohooo'});
 });
 
-app.get('/profile',(request,response) => {
+app.get('/serviceProfile',(request,response) => {
 
 });
 
 app.post('/getItems', (request,response) => {
+	console.log('getting items');
 	if(request.session.user){
 		var user = request.session.user;
 		services.getItems(user,request.fields['lowerLim'],request.fields['upperLim'],(err,items) => {

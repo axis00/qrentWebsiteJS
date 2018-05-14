@@ -63,11 +63,11 @@ function loaditems(lower,upper) {
                 itemCont.append(itemNumberTitle);
                 itemCont.append(deleteForm);
 
-                for(var j = 0; j < data[i].images.length; j++){
-                   var img =document.createElement('img');
-                   img.src = '/itemimage?i=' + data[i].images[j];
-                   imgCont.append(img);
-                }
+                // for(var j = 0; j < data[i].images.length; j++){
+                //    var img =document.createElement('img');
+                //    img.src = '/itemimage?i=' + data[i].images[j];
+                //    imgCont.append(img);
+                // }
                 
                 // itemCont.append(imgCont)
                 cont.append(itemCont);           
