@@ -34,8 +34,6 @@ function loaditems(lower,upper) {
         type: 'POST',
         data: {lowerLim: lower, upperLim: upper},
         success: function(data){
-            console.log(data);
-            console.log('done');
             last = data.length < 10;
             for(var i = 0; i < data.length; i++){
                 var itemCont = $('<div class="jumbotron">');
