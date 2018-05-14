@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
 
     $('#backBtn').on('click',function(){
-        if(pageNumber){
+        if(pageNumber > 1){
             pageNumber--;
             loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 10);
         }
@@ -36,13 +36,12 @@ function loaditems(lower,upper) {
         success: function(data){
             last = data.length < 10;
             for(var i = 0; i < data.length; i++){
-                var itemCont = $('<div class="jumbotron">');
+                var itemCont = $('<div class="jumbotron shadow-sm">');
                 var imgCont = $('<div>');
-                var itemNameTitle = $('<p>');
-                var itemDescTitle = $('<p>');
+                var itemNameTitle = $('<h2 class="card-title">');
+                var itemDescTitle = $('<h7 class="card-text">');
                 var itemBrandTitle = $('<p>');
-                var itemRPTitle = $('<p>');
-                var itemNumberTitle = $('<p>');
+                var itemRPTitle = $('<h4>');
                 
                 var deleteForm = $('<form>');
                 deleteForm.on('submit',function(evnt){
@@ -65,20 +64,19 @@ function loaditems(lower,upper) {
                 
                 itemCont.attr('id', data[i].itemNumber);
                 deleteForm.html('<input name = "itemToDelete" type = "hidden" value = ' + data[i].itemNumber + '>' +
-                                    '<input type = "submit" value = "Delete" class="btn btn-danger">'
+                                    '<input type = "submit" value = "Delete" class="shadow-sm btn btn-danger btn-delete">'
                                  );
                 deleteForm.attr('class', 'deleteForm');
                 itemNameTitle.html(data[i].itemName);
                 itemDescTitle.html(data[i].itemDescription);
                 itemBrandTitle.html(data[i].itemBrand);
-                itemRPTitle.html(data[i].itemRentPrice);
-                itemNumberTitle.html(data[i].itemNumber);
+                itemRPTitle.html(data[i].itemRentPrice + " PHP / Day");
                 
                 itemCont.append(itemNameTitle);
-                itemCont.append(itemDescTitle);
-                itemCont.append(itemBrandTitle);
                 itemCont.append(itemRPTitle);
-                itemCont.append(itemNumberTitle);
+                itemCont.append($('<br/>'));
+                itemCont.append(itemBrandTitle);
+                itemCont.append(itemDescTitle);
                 itemCont.append(deleteForm);
 
                 cont.append(itemCont);           

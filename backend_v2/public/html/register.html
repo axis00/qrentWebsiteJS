@@ -3,6 +3,16 @@
     <head>
         <link rel="stylesheet" type="text/css" href="styles/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <script>
+            function validate(field) {
+                if (field.value != document.getElementById("password").value) {
+                    field.setCustomValidity("Passwords Dont Match");
+                } else {
+                    field.setCustomValidity("");
+                }
+            }
+
+        </script>
     </head>
 	<body>
         <div class = regContainer>
@@ -14,31 +24,32 @@
                 <div class = "formcont">
                     <div class="form-group">  
                         <p class=signUpTag>Basic Info</p>
-                        <input type="text" name="firstName" placeholder="First Name" class="form-control">
+                        <input type="text" name="firstName" placeholder="First Name" class="form-control" required="required">
 
-                        <input type="text" name="lastName" placeholder="Last Name" class="form-control">
+                        <input type="text" name="lastName" placeholder="Last Name" class="form-control" required="required">
 
-                        <input type="email" name="email" placeholder="E-mail Address" class="form-control">
+                        <input type="email" name="email" placeholder="E-mail Address" class="form-control" required="required">
 
-                        <input type="text" name="mobileNumber" placeholder="Mobile Number" class="form-control">
+                        <input type="text" name="mobileNumber" placeholder="Mobile Number" class="form-control" required="required">
 
-                        <input type="text" name="username" placeholder="Username" class="form-control">
+                        <input type="text" name="username" placeholder="Username" class="form-control" required="required">
 
-                        <input type="password" name="password" placeholder="Password" class="form-control">
+                        <input type="password" id = "password" name="password" placeholder="Password" class="form-control" required="required">
+                        <input type="password" placeholder="Confirm Password" class="form-control" required="required" oninput = "validate(this)">
 
                     </div>
                     <div>
                         <p class=signUpTag>Birthday</p>
-                        <input type="date" name="birthday" placeholder="Birthday" class="form-control">
+                        <input type="date" name="birthday" placeholder="Birthday" class="form-control" required="required">
 
                         <p class=signUpTag>Address</p>
-                        <input type="text" name="street" placeholder="Street" class="form-control"> 
+                        <input type="text" name="street" placeholder="Street" class="form-control" required="required"> 
 
-                        <input type="text" name=" municipality" placeholder="Municipality" class="form-control"> 
+                        <input type="text" name=" municipality" placeholder="Municipality" class="form-control" required="required"> 
 
-                        <input type="text" name="province" placeholder="Province" class="form-control"> 
+                        <input type="text" name="province" placeholder="Province" class="form-control" required="required"> 
 
-                        <input type="text" name="postalCode" placeholder="Postal Code" class="form-control"> 
+                        <input type="text" name="postalCode" placeholder="Postal Code" class="form-control" required="required"> 
                     </div>
 
                     <input type="submit" value="Register" class="btn btn-primary btn-login">
