@@ -89,13 +89,17 @@ body{
 
 /*Console*/
 .btn-group btn-group-lg {
-    margin: 20px;
+    margin-bottom: 20px;
+}
+
+.btn btn-secondary {
+    color: red;
 }
 
 .page-header {
-    color: white;
-    text-shadow: 2px 2px #4b4747;
-    background-color: wheat;
+    color: wheat;
+    text-shadow: 2px 2px #2f3434;
+    background-color: #37888e;
     padding: 20px;
 }
 
@@ -104,5 +108,7 @@ body{
 }
 
 #content p {
+    padding: 5px;
+    border-radius: 5px;
     background-color: white;
 }
