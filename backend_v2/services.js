@@ -13,10 +13,6 @@ conn.connect((err) => {
 	if(err) throw err;
 });
 
-exports.fetchItems = function(user,start,end){
-	//TODO
-}
-
 exports.addUser = function(usr,callback){
 
 	console.log(usr);
@@ -51,7 +47,7 @@ exports.addItem = function(usr,item,callback){
 
 		itemNo = res.insertId;
 
-		if(item.imgs){
+		if(item.imgs.length){
 			if(!item.imgs[0]){
 				fs.readFile(item.imgs.path, (err,data) => {
 						var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
@@ -80,6 +76,8 @@ exports.addItem = function(usr,item,callback){
 
 				})(i);
 			}
+		}else{
+			callback();
 		}
 	});
 }
@@ -98,12 +96,15 @@ exports.getItemImg = function(id,callback){
 
 }
 
-exports.getItems = function(usr,callback){
-	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ?";
+exports.getReservation = function(user){
+}
+
+exports.getItems = function(usr,lowLim,upLim,callback){
+	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ? limit ?,?";
 
 	var items = [];
 
-	conn.query(sql,[usr],(err,res,fields) => {
+	conn.query(sql,[usr,parseInt(lowLim),parseInt(upLim)],(err,res,fields) => {
 		if(!err){
 			for(i in res){
 				items[i] = new Item(res[i]);
@@ -128,6 +129,36 @@ exports.getItems = function(usr,callback){
 		}else{
 			callback(err)
 		}
+	});
+
+}
+
+exports.auth = function(user,password,callback){
+	var sql = "SELECT password,status FROM qrent.users WHERE username = ?"
+
+	conn.query(sql,[user], (err,res,fields) => {
+		if(res.length == 1){
+			if(res[0].password === password){
+				callback(null,res[0].status);
+			}else{
+				//wrong pass
+				callback(1);
+			}
+		}else{
+			//couldnt find user
+			callback(-1);
+		}
+	});
+}
+
+exports.deleteItem = function(user,itemno,callback){
+
+	var sql = "DELETE FROM qrent.Item WHERE itemno = ?";
+
+	conn.query(sql,[itemno],(err,res,fields) => {
+		console.log(err);
+		console.log(res);
+		callback(err);
 	});
 
 }
