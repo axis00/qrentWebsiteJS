@@ -96,7 +96,8 @@ exports.getItemImg = function(id,callback){
 
 }
 
-exports.getReservation = function(user){
+exports.getReservation = function(user,callback){
+	
 }
 
 exports.getItems = function(usr,lowLim,upLim,callback){

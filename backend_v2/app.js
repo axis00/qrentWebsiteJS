@@ -160,6 +160,14 @@ app.get('/console/reservations',(request,response) => {
 	response.render('reservations',{avar : 'woohooo'});
 });
 
+app.post('/getReservations',(request,response) => {
+	if(!request.session.user){
+		response.redirect('/login');
+	}else{
+
+	}
+});
+
 app.get('/serviceProfile',(request,response) => {
 
 });
