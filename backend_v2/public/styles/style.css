@@ -26,11 +26,11 @@ body{
 .homeContainer{
     position: fixed;
     height: 40%;
-    width: 40%;
+    width: 60%;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+    
     padding: 20px;
 }
 
@@ -62,6 +62,7 @@ body{
     text-align: left;
 }
 
+
 /*Console*/
 .btn-group btn-group-lg {
     margin-bottom: 20px;
@@ -76,13 +77,16 @@ body{
 
 
 .btn-login{
-    width: 50%;
+    width: 60%;
     height: 10%;
 }
 
-#button-cell{
-    
 
+.col{
+    flex: 50%;
+}
+.row{
+    
 }
 
 
@@ -191,4 +195,29 @@ textarea {
     display: inline;
     margin: .5rem;
     border: 1px solid #d2d2d2;
+}
+
+/* homepage */
+.homeContainer {
+    left: 55%;
+    top: 45%;
+    text-align: center;
+}
+
+.column {
+    top:50%;
+    text-align: center;
+}
+
+#button-cell{
+    padding-top: 10%;
+    width: 60%;
+
+}
+
+#loginHeader{
+    border-right: 2px solid black;
+    padding-top: 10%;
+    width:40% ;
+    text-align: center; 
 }
