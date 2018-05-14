@@ -3,19 +3,30 @@ html
 	head
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
 		script(src='../scripts/f_reservation.js')
+		link(rel='stylesheet' type='text/css' href='../styles/bootstrap/dist/css/bootstrap.css')
+		link(rel='stylesheet' type='text/css' href='../styles/style.css')
 		title Reservations
 	body
+
+		include header.pug
+		+header('/logout','Logout','/console','Console','/postItem','Post Item')
+
+		h1 Client Reservations
+
 		div#content
-			
-		button#backBtn Prev Page
-		button#nextBtn Next Page
-		div.reservation#reservationTemplate
-				p.reservationTitle Item
-				p.reservationStatus Pending
-				p.requestDate dec
-				p.endDate jan
-				p.rentPrice 150
+		
+		div#consoleNav.btn-group.btn-group-lg(role="group")
+			button#backBtn.btn.btn-secondary Prev Page
+			button#nextBtn.btn.btn-secondary Next Page
+		div.reservation#reservationTemplate.jumbotron
+				h2.reservationTitle.card-title Item
+				h4.reservationStatus Pending
+				h7.requestDate dec
+				h7.endDate jan
+				h3.rentPrice 150
 					span  PHP/DAY
 				span Reserved By 
 					a(class = "reservee" href = "#") profile
-				button#approve Approve
+				div.resvBtn
+					button#approve.btn-resv.shadow-sm.btn.btn-success Approve
+					button#cancel.btn-resv.shadow-sm.btn.btn-danger Reject

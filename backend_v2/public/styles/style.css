@@ -127,6 +127,10 @@ body{
 
 }
 
+.page-header .pending{
+    border: 2px solid green;
+}
+
 #content {
     width: 50%;
     margin: 0 auto;
@@ -169,3 +173,22 @@ textarea {
     text-align: center;
     width: 50%;
     margin: 0 auto;
+}
+
+/*reservations*/
+#reservationTemplate {
+    display: none;
+}
+
+.resvBtn{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: .5rem;
+}
+
+.btn-resv{
+    display: inline;
+    margin: .5rem;
+    border: 1px solid #d2d2d2;
+}

@@ -123,8 +123,21 @@ exports.approveReservation = function(user,reservationID,callback){
 
 }
 
+exports.cancelReservation = function(user,reservationID,callback){
+	sql = "UPDATE Reservation SET status='rejected' WHERE ReservationID= ?";
+
+	conn.query(sql,[reservationID],(err,res,fields) => {
+		if(err){
+			callback(err);
+		}else{
+			callback(null);
+		}
+	});
+
+}
+
 exports.getItems = function(usr,lowLim,upLim,callback){
-	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ? limit ?,?";
+	var sql = "SELECT * FROM qrent.Item where itemOwner = ? LIMIT ?,?;";
 
 	var items = [];
 

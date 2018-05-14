@@ -44,7 +44,7 @@ function loaditems(lower,upper) {
                     $(sel + ' .reservationStatus').html(data[i].status);
                     $(sel + ' .requestDate').html(data[i].requestdate);
                     $(sel + ' .endDate').html(data[i].enddate);
-                    $(sel + ' .rentPrice').html(data[i].itemRentPrice);
+                    $(sel + ' .rentPrice').html(data[i].itemRentPrice + " PHP/DAY");
                     $(sel + ' .reservee').html(data[i].client);
                     $(sel + ' #approve').on('click',function(){
                         var resId = data[i].ReservationID;
@@ -57,6 +57,22 @@ function loaditems(lower,upper) {
                             success: function(data){
                                 if(data == 'success'){
                                     $(sel + ' .reservationStatus').html("Approved");
+                                }
+                            }
+                        });
+                    });
+
+                    $(sel + ' #cancel').on('click',function(){
+                        var resId = data[i].ReservationID;
+                        console.log(resId);
+                        $.ajax({
+                            url: '/cancelReservation',
+                            host: 'localhost:8000',
+                            type: 'POST',
+                            data: {reservID: resId},
+                            success: function(data){
+                                if(data == 'success'){
+                                    $(sel + ' .reservationStatus').html("rejected");
                                 }
                             }
                         });

@@ -67,6 +67,7 @@ function loaditems(lower,upper) {
                                     '<input type = "submit" value = "Delete" class="shadow-sm btn btn-danger btn-delete">'
                                  );
                 deleteForm.attr('class', 'deleteForm');
+
                 itemNameTitle.html(data[i].itemName);
                 itemDescTitle.html(data[i].itemDescription);
                 itemBrandTitle.html(data[i].itemBrand);

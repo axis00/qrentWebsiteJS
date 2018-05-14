@@ -159,7 +159,11 @@ app.get('/itemimage',(request,response) => {
 });
 
 app.get('/console/reservations',(request,response) => {
-	response.render('reservations',{avar : 'woohooo'});
+	if(!request.session.user){
+		response.redirect('/login');
+	}else{
+		response.render('reservations');		
+	}
 });
 
 app.post('/getReservations',(request,response) => {
@@ -187,13 +191,32 @@ app.get('/serviceProfile',(request,response) => {
 
 app.post('/approveReservation',(request,response) => {
 
-	console.log(request.fields);
-
 	if(!request.session.user){
 		response.writeHead(401);
 		response.end();
 	}else{
 		services.approveReservation(request.session.user,request.fields['reservID'],(err) => {
+			if(err){
+				response.writeHead(404);
+				response.end();
+			}else{
+				response.writeHead(200,{'Content-Type' : 'text/plain'});
+				response.write('success');
+				response.end();
+			}
+		});
+	}
+
+});
+
+
+app.post('/cancelReservation',(request,response) => {
+
+	if(!request.session.user){
+		response.writeHead(401);
+		response.end();
+	}else{
+		services.cancelReservation(request.session.user,request.fields['reservID'],(err) => {
 			if(err){
 				response.writeHead(404);
 				response.end();
