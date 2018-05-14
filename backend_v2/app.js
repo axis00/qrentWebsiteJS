@@ -19,6 +19,8 @@ var mimeTypes = {
 
 app.set('view engine','pug');
 
+app.use(express.static('public'));
+
 app.use(session({
 	store: new FileStore, 
 	secret: 'somerandomstring',
@@ -31,7 +33,7 @@ app.use(formidale({
 	multiples: true
 }));
 
-app.use(express.static('public'));
+
 
 app.get('/',(request,response) => {
 
