@@ -19,32 +19,33 @@
                 <div class="form-group">
                     <input type="text" name="title" placeholder="Item Name" class="form-control">
                     <textarea type="text" rows="5" name="description" placeholder="Description" class="form-control" resize="none"></textarea>
-                </div>
-                <!--                inline??-->
-                    <div class="form-group">
-                <div class="row">
-                    <div class="col-xs-6 col-xs-offset-2 form-group">
-                        <input type="text" name="brand" placeholder="Brand" class="form-control">
+                    <input type="text" name="brand" placeholder="Brand" class="form-control">
+                    <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price -- PHP/Day" class="form-control">
+                    <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price -- PHP" class="form-control">
+                    <input type="file" name="images" multiple="multiple" class="form-control">
+<!--
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-7 form-group">
+                            <input type="text" name="brand" placeholder="Brand" class="form-control">
+                        </div>
+                        <div class="col-lg-6 col-lg-offset-3 form-group">
+                            <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price" class="form-control">
+                            <label for="rentPice">PHP/Day</label>
+                        </div>
                     </div>
-
-                    <div class="col-xs-6 form-group">
-                        <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price" class="form-control">
-                         
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price" class="form-control">
+                            <label for="origPice">PHP</label>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input type="file" name="images" multiple="multiple" class="form-control">
+                        </div>
                     </div>
-                    <label for="rentPice">PHP/Day</label>
-                </div>
-                <div class="row">
-                    <div class="col-xs-6 form-group">
-                        <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price" class="form-control">
-                        <label for="origPice">PHP</label>
-                    </div>
-                    <div class="col-xs-6 form-group">
-                        <input type="file" name="images" multiple="multiple" class="form-control">
-                    </div>
-                </div>
+-->
                 </div>
                 <input type="submit" value="Post Item" class="btn btn-success">
-
+                
             </form>
         </div>
     </div>
