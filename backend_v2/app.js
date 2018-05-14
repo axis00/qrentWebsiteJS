@@ -17,6 +17,8 @@ var mimeTypes = {
 	"css": "text/css"
 };
 
+app.set('view engine','pug');
+
 app.use(session({
 	store: new FileStore, 
 	secret: 'somerandomstring',
@@ -155,14 +157,34 @@ app.get('/itemimage',(request,response) => {
 });
 
 app.get('/console/reservations',(request,response) => {
-
+	response.render('reservations',{avar : 'woohooo'});
 });
 
-app.get('/profile',(request,response) => {
+app.post('/getReservations',(request,response) => {
+	if(!request.session.user){
+		response.writeHead(401);
+		response.end();
+	}else{
+		services.getReservations(request.session.user,request.fields['lowerLim'],request.fields['upperLim'],(err,data) => {
+			if(!err){
+				response.writeHead(200,{'Content-Type' : 'application/json'});
+				response.write(JSON.stringify(data));
+				response.end();
+			}else{
+				console.log(err)
+				response.writeHead(404);
+				response.end();
+			}
+		});
+	}
+});
+
+app.get('/serviceProfile',(request,response) => {
 
 });
 
 app.post('/getItems', (request,response) => {
+	console.log('getting items');
 	if(request.session.user){
 		var user = request.session.user;
 		services.getItems(user,request.fields['lowerLim'],request.fields['upperLim'],(err,items) => {

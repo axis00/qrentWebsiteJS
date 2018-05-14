@@ -96,7 +96,18 @@ exports.getItemImg = function(id,callback){
 
 }
 
-exports.getReservation = function(user){
+exports.getReservations = function(user,lowLim,upLim,callback){
+	var sql = "SELECT * FROM qrent.Reservation natural join qrent.Item where itemOwner = ? LIMIT ?,?";
+
+	conn.query(sql,[user,parseInt(lowLim),parseInt(upLim)],(err,res,fields) => {
+
+		if(!err){
+			callback(null,res);
+		}else{
+			callback(err);
+		}
+
+	});
 }
 
 exports.getItems = function(usr,lowLim,upLim,callback){

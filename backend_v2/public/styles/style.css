@@ -85,4 +85,24 @@ body{
 #qrentTag{
     font-size: 55px;
     text-align: left;
+    padding: 3em;
+}
+/*Console*/
+.btn-group btn-group-lg {
+    margin: 20px;
+}
+
+.page-header {
+    color: white;
+    text-shadow: 2px 2px #4b4747;
+    background-color: wheat;
+    padding: 20px;
+}
+
+.jumbotron {
+    border: 2px solid rgb(182, 216, 250);
+}
+
+#content p {
+    background-color: white;
 }

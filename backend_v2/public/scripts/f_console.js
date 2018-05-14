@@ -1,13 +1,32 @@
+var last = false;
+
 $(document).ready(function () {
 
     var pageNumber = 1;
     
-    loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 9);    
+    loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 10);
+
+    $('#nextBtn').on('click',function(){
+        if(!last){
+            pageNumber++;
+            loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 10);
+        }
+        
+    });
+
+    $('#backBtn').on('click',function(){
+        if(pageNumber){
+            pageNumber--;
+            loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 10);
+        }
+    });
+
 });
     
 function loaditems(lower,upper) {
 
     var cont = $('#content');
+    cont.html("");
 
     $.ajax({
         url: '/getItems',
@@ -15,10 +34,9 @@ function loaditems(lower,upper) {
         type: 'POST',
         data: {lowerLim: lower, upperLim: upper},
         success: function(data){
-            console.log(data);
-            console.log('done');
+            last = data.length < 10;
             for(var i = 0; i < data.length; i++){
-                var itemCont = $('<div>');
+                var itemCont = $('<div class="jumbotron">');
                 var imgCont = $('<div>');
                 var itemNameTitle = $('<p>');
                 var itemDescTitle = $('<p>');
@@ -47,7 +65,7 @@ function loaditems(lower,upper) {
                 
                 itemCont.attr('id', data[i].itemNumber);
                 deleteForm.html('<input name = "itemToDelete" type = "hidden" value = ' + data[i].itemNumber + '>' +
-                                    '<input type = "submit" value = "delete">'
+                                    '<input type = "submit" value = "delete" class="btn btn-danger">'
                                  );
                 deleteForm.attr('class', 'deleteForm');
                 itemNameTitle.html(data[i].itemName);
@@ -63,13 +81,6 @@ function loaditems(lower,upper) {
                 itemCont.append(itemNumberTitle);
                 itemCont.append(deleteForm);
 
-                for(var j = 0; j < data[i].images.length; j++){
-                   var img =document.createElement('img');
-                   img.src = '/itemimage?i=' + data[i].images[j];
-                   imgCont.append(img);
-                }
-                
-                // itemCont.append(imgCont)
                 cont.append(itemCont);           
 
             }
