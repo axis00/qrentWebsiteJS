@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Qrent</title>
+        <link rel="stylesheet" type="text/css" href="../styles/style.css">
+    </head>
 	<body>
-		<form action = "/register" method = "POST">
-			<input type = "email" name = "email" placeholder="email address">
-			<input type = "text" name = "username" placeholder="username">
-			<input type = "password" name = "password" placeholder = "password">
-            <input type = "text" name = "fname" placeholder = "First Name">
-            <input type = "text" name = "lname" placeholder = "Last Name">
-            <input type="submit" value="Submit" />
-		</form>
+        <div class = registerContainer>
+            <form action = "/register" method = "POST">
+                <input type = "email" name = "email" placeholder="email address" class = regField>
+                <input type = "text" name = "username" placeholder="username" class = regField>
+                <input type = "password" name = "password" placeholder = "password" class = regField>
+                <input type = "text" name = "fname" placeholder = "First Name" class = regField>
+                <input type = "text" name = "lname" placeholder = "Last Name" class = regField>
+                <input type="submit" value="Submit" id = "button">
+            </form>
+        </div>
 	</body>
 </html>
