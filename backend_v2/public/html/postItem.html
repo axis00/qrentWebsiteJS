@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" type="text/css" href="styles/bootstrap/dist/css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
-    
-    </head>
-	<body>
-           <div class="page-header">
-            <h1> Qrent </h1>
-        </div>
-        <div class="content">
-            <div class="jumbotron">
-		<form action = "/postItem" method="POST" enctype="multipart/form-data">
-			<input type = "text"  name = "title" placeholder="Item Name">
-            <textarea type = "text" rows = "5"  name = "description" placeholder="Description"></textarea>
-            <input type="text" name="brand" placeholder="Brand">
-            
-            <input type="Number" name="rentPrice" id = "rentPrice" placeholder="Rent Price">
-            <label for = "rentPice">PHP/Day</label>
-            <input type="Number" name="origPrice" id = "origPrice" placeholder="Original Price">
-            <label for = "origPice">PHP</label>
-			<input type = "file" name = "images" multiple = "multiple">
-			<input type = "submit" value = "post">
-		</form>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+
+</head>
+
+<body>
+    <div class="page-header">
+        <h1> Qrent </h1>
+    </div>
+    <div class="content-postItem">
+        <div class="jumbotron">
+            <p> Post Item</p>
+            <form action="/postItem" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" name="title" placeholder="Item Name" class="form-control">
+                    <textarea type="text" rows="5" name="description" placeholder="Description" class="form-control" resize="none"></textarea>
+                    <input type="text" name="brand" placeholder="Brand" class="form-control">
+                    <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price -- PHP/Day" class="form-control">
+                    <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price -- PHP" class="form-control">
+                    <input type="file" name="images" multiple="multiple" class="form-control">
+<!--
+                    <div class="row">
+                        <div class="col-lg-5 col-lg-offset-7 form-group">
+                            <input type="text" name="brand" placeholder="Brand" class="form-control">
+                        </div>
+                        <div class="col-lg-6 col-lg-offset-3 form-group">
+                            <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price" class="form-control">
+                            <label for="rentPice">PHP/Day</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price" class="form-control">
+                            <label for="origPice">PHP</label>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <input type="file" name="images" multiple="multiple" class="form-control">
+                        </div>
+                    </div>
+-->
                 </div>
-            </div>
-	</body>
+                <input type="submit" value="Post Item" class="btn btn-success">
+                
+            </form>
+        </div>
+    </div>
+</body>
+
 </html>

@@ -116,3 +116,15 @@ body{
     border-radius: 5px;
     background-color: white;
 }
+
+/*postItem*/
+
+textarea {
+    resize: none;
+}
+
+.content-postItem {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
