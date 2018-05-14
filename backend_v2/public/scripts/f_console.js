@@ -36,7 +36,7 @@ function loaditems(lower,upper) {
         success: function(data){
             last = data.length < 10;
             for(var i = 0; i < data.length; i++){
-                var itemCont = $('<div class="jumbotron shadow-sm">');
+                var itemCont = $('<div class="jumbotron">');
                 var imgCont = $('<div>');
                 var itemNameTitle = $('<h2 class="card-title">');
                 var itemDescTitle = $('<h7 class="card-text">');

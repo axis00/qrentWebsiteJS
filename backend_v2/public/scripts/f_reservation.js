@@ -35,7 +35,7 @@ function loaditems(lower,upper) {
         data: {lowerLim: lower, upperLim: upper},
         success: function(data){
                 console.log(data);          
-                for(i in data){
+                for(i in data)(function(i){
                     var contTemp = $('#reservationTemplate').clone();
                     contTemp.attr('id','res' + i);            
                     cont.append(contTemp);
@@ -45,8 +45,23 @@ function loaditems(lower,upper) {
                     $(sel + ' .requestDate').html(data[i].requestdate);
                     $(sel + ' .endDate').html(data[i].enddate);
                     $(sel + ' .rentPrice').html(data[i].itemRentPrice);
-                    //TODO approve
-                }
+                    $(sel + ' .reservee').html(data[i].client);
+                    $(sel + ' #approve').on('click',function(){
+                        var resId = data[i].ReservationID;
+                        console.log(resId);
+                        $.ajax({
+                            url: '/approveReservation',
+                            host: 'localhost:8000',
+                            type: 'POST',
+                            data: {reservID: resId},
+                            success: function(data){
+                                if(data == 'success'){
+                                    $(sel + ' .reservationStatus').html("Approved");
+                                }
+                            }
+                        });
+                    });
+                })(i);
 
             }
     });

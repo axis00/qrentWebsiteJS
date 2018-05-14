@@ -110,6 +110,19 @@ exports.getReservations = function(user,lowLim,upLim,callback){
 	});
 }
 
+exports.approveReservation = function(user,reservationID,callback){
+	sql = "UPDATE Reservation SET status='accepted' WHERE ReservationID= ?";
+
+	conn.query(sql,[reservationID],(err,res,fields) => {
+		if(err){
+			callback(err);
+		}else{
+			callback(null);
+		}
+	});
+
+}
+
 exports.getItems = function(usr,lowLim,upLim,callback){
 	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ? limit ?,?";
 
