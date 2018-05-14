@@ -4,28 +4,32 @@
     
     <head>
         <Title>Home</Title>
-        <link rel="stylesheet" href="homepage.css">
+        <link rel="stylesheet" type="text/css" href="../../../styles/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="../../../styles/style.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     
     <body>
-        <div id="landing-container">
-            <h1> Qrent </h1>
-        <div id="landing-border"></div>
-        <div id="landing-description">
-            <p> Site Description </p>
-        </div>
-      
+        <div class=homeContainer>
+            <div id="loginHeader">
+                <img class="img" src="../../../qrent-logo.png" id=qrentLogo>
+                <p id="qrentTag">Qrent</p>
+            </div>
+            <div id="landing-border"></div>
+            <div id="landing-description">
+                <p> Site Description </p>
+            </div>
+            <div id="button-cell">
+                <div id="button-login">
+                    <button type="button" href="../../login.html" name="login" class="btn btn-home btn-primary"> Log In </button>
+                </div>
+                <div id="button-signup">
+                    <button type="button" href="" name="signup" class="btn btn-home btn-primary"> Sign Up</button>
+                </div>
+            </div>
         </div>
         
-          <div id="button-cell">
-              <div id="button-login">
-            <button class="button" href="" name="login"> Log In </button>
-        </div>
-              <div id="button-signup">
-                <button class="button" href="" name="signup"> Sign Up</button>
-              </div>
-        </div>
+          
     </body>
 </html>
