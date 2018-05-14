@@ -1,7 +1,21 @@
 doctype html
 html
 	head
-		title TRY
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+		script(src='../scripts/f_reservation.js')
+		title Reservations
 	body
-		div.thisisaclas#thisisanID
-			p #{avar}
+		div#content
+			
+		button#backBtn Prev Page
+		button#nextBtn Next Page
+		div.reservation#reservationTemplate
+				p.reservationTitle Item
+				p.reservationStatus Pending
+				p.requestDate dec
+				p.endDate jan
+				p.rentPrice 150
+					span  PHP/DAY
+				span Reserved By 
+					a(href = "#") profile
+				button#approve Approve
