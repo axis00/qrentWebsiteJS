@@ -7,7 +7,7 @@ body{
 .loginContainer{
     position: fixed;
     padding: 2em;
-    height: 28em;
+    height: 29em;
     width: 28em;
     top: 50%;
     left: 50%;
@@ -85,8 +85,8 @@ body{
 #qrentTag{
     font-size: 55px;
     text-align: left;
-    padding: 3em;
 }
+
 /*Console*/
 .btn-group btn-group-lg {
     margin: 20px;
