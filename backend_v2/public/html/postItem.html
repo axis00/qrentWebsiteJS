@@ -5,7 +5,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
-
+    <title>Post Item</title>
+    <link rel="icon" href="qrent-logo.png">
 </head>
 
 <body>
@@ -32,7 +33,20 @@
                 <div class="form-group">
                     <input type="text" name="title" placeholder="Item Name" class="form-control">
                     <textarea type="text" rows="5" name="description" placeholder="Description" class="form-control" resize="none"></textarea>
-                    <input type="text" name="brand" placeholder="Brand" class="form-control">
+                    <select class="form-control" id="brand" name = "brand">
+        
+                        <option>Canon</option>
+                        <option>Nikon</option>
+                        <option>Pentax</option>
+                        <option>Sony</option>
+                        <option>Olympus</option>
+                        <option>Fujifilm</option>
+                        <option>GoPro</option>
+                        <option>Leica</option>
+                        <option>Red</option>
+                        <option>Others</option>
+
+                    </select>
                     <input type="Number" name="rentPrice" id="rentPrice" placeholder="Rent Price -- PHP/Day" class="form-control">
                     <input type="Number" name="origPrice" id="origPrice" placeholder="Original Price -- PHP" class="form-control">
                     <input type="file" name="images" multiple="multiple" class="form-control">

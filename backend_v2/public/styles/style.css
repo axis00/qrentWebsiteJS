@@ -4,9 +4,13 @@ body{
     
 }
 
+h1{
+    padding: 1rem;
+    text-align: center;
+}
+
 .loginContainer{
     padding: 2em;
-    height: 29em;
     width: 28em;
     margin: 20vh auto;
     background-color: white;
@@ -71,7 +75,6 @@ body{
 .btn-home{    
     width: 50%;
     height: 50px;
-    border-radius: 25px;
     margin: 10px;
 }
 
@@ -216,8 +219,17 @@ textarea {
 }
 
 #loginHeader{
-    border-right: 2px solid black;
     padding-top: 10%;
-    width:40% ;
     text-align: center; 
+}
+
+.card{
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+}
+
+.card-deck{
+    margin: 0 auto;
+    max-width: 50%;
 }

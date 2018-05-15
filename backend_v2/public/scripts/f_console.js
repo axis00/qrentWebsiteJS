@@ -30,7 +30,7 @@ function loaditems(lower,upper) {
 
     $.ajax({
         url: '/getItems',
-        host: 'localhost:8000',
+        host: 'qrent.com',
         type: 'POST',
         data: {lowerLim: lower, upperLim: upper},
         success: function(data){
@@ -48,7 +48,7 @@ function loaditems(lower,upper) {
                     evnt.preventDefault();
                     $.ajax({
                         url: '/deleteItem',
-                        host: 'localhost:8000',
+                        host: 'qrent.com',
                         type: 'POST',
                         data: $(this).serialize(),
                         success: function(data){

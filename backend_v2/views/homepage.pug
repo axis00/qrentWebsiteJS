@@ -1,0 +1,32 @@
+doctype html
+html
+	head
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+		script(src='../scripts/f_reservation.js')
+		link(rel='stylesheet' type='text/css' href='../styles/bootstrap/dist/css/bootstrap.css')
+		link(rel='stylesheet' type='text/css' href='../styles/style.css')
+		title Home
+		link(rel="icon" href="/qrent-logo.png")
+	body
+
+		include header.pug
+		+header({'Logout' : '/logout','Console' : '/console','Reservations' : '/console/reservations','Post Item' : '/postItem'})
+		h1 Welcome #{user}
+		div.card-deck
+			div.card.bg-info.mb-4(style="max-width : 18rem")
+				div.card-header Service Provider
+				div.card-body
+					h5.card-title Reminder
+					p.card-text.text-white Make Sure to Approve or Decline Reservations, Don't keep Clients Waiting
+			div.card.bg-light.mb-4(style="max-width : 18rem")
+				div.card-header Statistics
+				div.card-body
+					h5.card-title Total Items
+					p.card-text You have #{totItems} for rent
+					a.text-blue(href="/console") Manage Them Here
+			div.card.bg-light.mb-4(style="max-width : 18rem")
+				div.card-header Statistics
+				div.card-body
+					h5.card-title Pending Requests
+					p.card-text You have #{totPending} Pending Reservations
+					a.text-blue(href="/console/reservations") Manage Them Here

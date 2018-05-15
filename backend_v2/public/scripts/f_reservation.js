@@ -30,7 +30,7 @@ function loaditems(lower,upper) {
 
     $.ajax({
         url: '/getReservations',
-        host: 'localhost:8000',
+        host: 'qrent.com',
         type: 'POST',
         data: {lowerLim: lower, upperLim: upper},
         success: function(data){
@@ -51,7 +51,7 @@ function loaditems(lower,upper) {
                         console.log(resId);
                         $.ajax({
                             url: '/approveReservation',
-                            host: 'localhost:8000',
+                            host: 'qrent.com',
                             type: 'POST',
                             data: {reservID: resId},
                             success: function(data){
@@ -67,7 +67,7 @@ function loaditems(lower,upper) {
                         console.log(resId);
                         $.ajax({
                             url: '/cancelReservation',
-                            host: 'localhost:8000',
+                            host: 'qrent.com',
                             type: 'POST',
                             data: {reservID: resId},
                             success: function(data){

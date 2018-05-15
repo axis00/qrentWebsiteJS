@@ -38,11 +38,17 @@ app.use(formidale({
 app.get('/',(request,response) => {
 
 	if(!request.session.user){
-		request.session.user = request.query.user;
+		response.sendFile(path.join(__dirname +'/public/html/pages/homepage/homepage.html'));
+	}else{
+		services.getStats(request.session.user,(err,stat) => {
+			if(!err){
+				response.render('homepage',{ user : request.session.user , totItems : stat.totItems, totPending : stat.totReservations});
+			}else{
+
+			}
+		});
 	}
 	
-	response.end("qrent backend api " + request.session.user);
-
 });
 
 app.get('/login',(request,response) => {
@@ -248,4 +254,4 @@ app.post('/getItems', (request,response) => {
 	}
 });
 
-app.listen(8000);
+app.listen(80);

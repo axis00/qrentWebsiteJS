@@ -28,13 +28,6 @@ var conn = mysql.createConnection({
 
 });
 
-conn.connect(function(err){
-
-	if(err) throw err;
-	console.log("connected");
-
-});
-
 //main app
 http.createServer(function (request, response) {
 
@@ -120,6 +113,14 @@ function handleGet(request,response){
 }
 
 function serveItems(request,response){
+
+	conn.connect(function(err){
+
+		if(err) throw err;
+		console.log("connected");
+
+	});
+
 	console.log("serving itesm");
 
 	var sql = "SELECT * FROM qrent.Item WHERE itemOwner = ?";
@@ -172,7 +173,7 @@ function deleteItem(request,response){
 	form.parse(request,(err,fields,files) => {
 		if(!err){
 			var itemNo = fields.itemToDelete;
-			var sql = "DELETE FROM qrent.items WHERE itemno = ?"
+			var sql = "DELETE FROM qrent.Item WHERE itemno = ?"
 
 			conn.query(sql,[itemNo], (e,r,f) => {
 

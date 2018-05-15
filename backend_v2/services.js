@@ -33,6 +33,35 @@ exports.addUser = function(usr,callback){
 
 }
 
+exports.getStats = function(usr,callback){
+	var stats = new Object();
+
+	var sql = "SELECT itemno FROM Item WHERE itemOwner = ?";
+
+	conn.query(sql,[usr],(err,res,fields) => {
+
+		if(!err){
+			stats.totItems = res.length;
+
+			sql = "SELECT itemno FROM Reservation natural join Item where itemOwner = ? and status = 'pending'";
+
+			conn.query(sql,[usr],(er,re,fi) => {
+				if(!err){
+					stats.totReservations = re.length;
+					callback(null,stats);
+				}else{
+					callback(err);
+				}
+			});
+
+		}else{
+			conn(err);
+		}
+
+	});
+
+}
+
 exports.addItem = function(usr,item,callback){
 
 	var inf = item.info;

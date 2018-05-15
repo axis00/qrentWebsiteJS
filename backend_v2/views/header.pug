@@ -1,13 +1,10 @@
-mixin header(link1 , label1, link2, label2,link3,label3)
+mixin header(links)
 	div.page-header
 		nav.navbar.navbar-expand-lg.navbar-light
 			a.navbar-brand(href='/')
 				h1 Qrent
 			ul.nav.navbar-nav.navbar-right
-				li.nav-item
-					a.nav-link(href=link1) #{label1}
-				li.nav-item
-					a.nav-link(href=link2) #{label2}
-				li.nav-item
-					a.nav-link(href=link3) #{label3}
+				each link , label in links
+					li.nav-item
+						a.nav-link(href=link) #{label}
 	

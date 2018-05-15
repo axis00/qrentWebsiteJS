@@ -1,4 +1,4 @@
-var homeurl = "http://localhost:8000";
+var homeurl = "http://qrent.com";
 
 $(document).ready(function(){
 	
