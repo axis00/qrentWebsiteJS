@@ -10,22 +10,15 @@ html
 	body
 
 		include header.pug
-		+header({'Logout' : '/logout','Console' : '/console','Post Item' : '/postItem'})
+		+header({'Logout' : '/logout','Console' : '/console','Post Item' : '/postItem','Reservations' : '/console/reservations'});
 
 		h1 Client Reservations
 
-		div.container
-			div.row
-				div.col-2
-				div.col-lg-8.col-sm-10
-					div#content
-					
-					div#consoleNav.btn-group.btn-group-lg(role="group")
-						button#backBtn.btn.btn-secondary Prev Page
-						button#nextBtn.btn.btn-secondary Next Page
-
-				div.col-2
-
+		div#content
+		
+		div#consoleNav.btn-group.btn-group-lg(role="group")
+			button#backBtn.btn.btn-secondary Prev Page
+			button#nextBtn.btn.btn-secondary Next Page
 		div.reservation#reservationTemplate.jumbotron
 				h2.reservationTitle.card-title Item
 				h4.reservationStatus Pending

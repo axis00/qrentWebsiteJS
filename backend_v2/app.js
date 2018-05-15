@@ -191,6 +191,7 @@ app.post('/getReservations',(request,response) => {
 	}
 });
 
+
 app.get('/serviceProfile',(request,response) => {
 
 });
@@ -240,7 +241,9 @@ app.post('/getItems', (request,response) => {
 	console.log('getting items');
 	if(request.session.user){
 		var user = request.session.user;
-		services.getItems(user,request.fields['lowerLim'],request.fields['upperLim'],(err,items) => {
+		services.getItems(user,request.fields['lowerLim'],request.fields['upperLim'],
+			request.fields['filter'],(err,items) => {
+			
 			if(!err){
 				response.writeHead(200,{'Content-Type' : 'application/json'});
 				response.end(JSON.stringify(items));
@@ -254,4 +257,4 @@ app.post('/getItems', (request,response) => {
 	}
 });
 
-app.listen(80);
+app.listen(8000);

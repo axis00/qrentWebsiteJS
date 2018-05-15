@@ -1,4 +1,5 @@
 var last = false;
+var _filters = ['returned','loaned','missing'];
 
 $(document).ready(function () {
 
@@ -21,9 +22,22 @@ $(document).ready(function () {
         }
     });
 
+    $('#filterBtn').on('click',function(){
+        var checked = $('input:checked');
+        _filters = [];
+        for(i = 0 ; i < checked.length; i++){
+            _filters.push(checked[i].value);
+        }
+
+        console.log(_filters);
+
+        loaditems((pageNumber - 1) * 10,((pageNumber - 1) * 10) + 10);
+
+    });
+
 });
     
-function loaditems(lower,upper) {
+function loaditems(lower,upper,filter) {
 
     var cont = $('#content');
     cont.html("");
@@ -32,7 +46,7 @@ function loaditems(lower,upper) {
         url: '/getItems',
         host: 'qrent.com',
         type: 'POST',
-        data: {lowerLim: lower, upperLim: upper},
+        data: {lowerLim: lower, upperLim: upper , filter : JSON.stringify(_filters)},
         success: function(data){
             last = data.length < 10;
             for(var i = 0; i < data.length; i++){
@@ -42,6 +56,7 @@ function loaditems(lower,upper) {
                 var itemDescTitle = $('<h7 class="card-text">');
                 var itemBrandTitle = $('<p>');
                 var itemRPTitle = $('<h4>');
+                var itemStatus = $('<h4>');
                 
                 var deleteForm = $('<form>');
                 deleteForm.on('submit',function(evnt){
@@ -72,9 +87,11 @@ function loaditems(lower,upper) {
                 itemDescTitle.html(data[i].itemDescription);
                 itemBrandTitle.html(data[i].itemBrand);
                 itemRPTitle.html(data[i].itemRentPrice + " PHP / Day");
+                itemStatus.html(data[i].status);
                 
                 itemCont.append(itemNameTitle);
                 itemCont.append(itemRPTitle);
+                itemCont.append(itemStatus);
                 itemCont.append($('<br/>'));
                 itemCont.append(itemBrandTitle);
                 itemCont.append(itemDescTitle);

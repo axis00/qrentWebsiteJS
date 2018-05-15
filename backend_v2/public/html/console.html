@@ -25,13 +25,36 @@
     		</nav>
         </div>
         <h1> Rental Console </h1>
-        <div id="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div class = "card bg-light" id = "filter">
+                        <div class = "card-header">
+                            Filter
+                        </div>
+                        <div class = "card-body">
+                            <div class="form-check">
+                                <input value = "returned" type="checkbox" class="form-check-input" id="ch_available" checked="checked">
+                                <label class="form-check-label" for="ch_available">Available Items</label><br/>
+                                <input value = "loaned" type="checkbox" class="form-check-input" id="ch_loaned" checked="checked">
+                                <label class="form-check-label" for="ch_loaned">On Going</label><br/>
+                                <input value = "missing" type="checkbox" class="form-check-input" id="ch_available" checked="checked">
+                                <label class="form-check-label" for="ch_missing">Missing</label><br/>
+                            </div>
+                            <button class = "btn btn-primary" id = "filterBtn" >Filter</button>
+                        </div>
+                    </div>
+                </div>
 
-         </div>
-        <div id = "consoleNav" class="btn-group btn-group-lg" role="group">
-        	<button id = "backBtn" class="btn btn-secondary">Prev Page</button>
-        	<button id = "nextBtn" class="btn btn-secondary">Next Page</button>
+                <div class="col-6">
+                    <div id = "content">
+                    </div>
+                    <div id = "consoleNav" class="btn-group btn-group-lg" role="group">
+                        <button id = "backBtn" class="btn btn-secondary">Prev Page</button>
+                        <button id = "nextBtn" class="btn btn-secondary">Next Page</button>
+                    </div>
+                </div>
+            </div>
         </div>
-           
     </body>
 </html>

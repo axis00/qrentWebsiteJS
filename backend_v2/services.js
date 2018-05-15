@@ -72,12 +72,10 @@ exports.addItem = function(usr,item,callback){
 
 	conn.query(sql,vals,(err,res,fields) => {
 
-		console.log(err);
-
 		itemNo = res.insertId;
 
-		if(item.imgs.length){
-			if(!item.imgs[0]){
+		if(item.imgs){
+			if(!item.imgs.length){
 				fs.readFile(item.imgs.path, (err,data) => {
 						var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
 						var imgName = item.imgs.name;
@@ -91,7 +89,8 @@ exports.addItem = function(usr,item,callback){
 				for(i in item.imgs)((i) => {
 
 					fs.readFile(item.imgs[i].path, (err,data) => {
-						
+
+
 						var imgSql = "INSERT INTO ItemImage(imagefile,itemno,imageName) VALUES (?)";
 						var imgName = item.imgs[i].name;
 
@@ -126,7 +125,7 @@ exports.getItemImg = function(id,callback){
 }
 
 exports.getReservations = function(user,lowLim,upLim,callback){
-	var sql = "SELECT * FROM qrent.Reservation natural join qrent.Item where itemOwner = ? LIMIT ?,?";
+	var sql = "SELECT * FROM qrent.Reservation join qrent.Item on (Item.itemno = Reservation.itemno) where itemOwner = ? LIMIT ?,?";
 
 	conn.query(sql,[user,parseInt(lowLim),parseInt(upLim)],(err,res,fields) => {
 
@@ -138,6 +137,7 @@ exports.getReservations = function(user,lowLim,upLim,callback){
 
 	});
 }
+
 
 exports.approveReservation = function(user,reservationID,callback){
 	sql = "UPDATE Reservation SET status='accepted' WHERE ReservationID= ?";
@@ -165,12 +165,31 @@ exports.cancelReservation = function(user,reservationID,callback){
 
 }
 
-exports.getItems = function(usr,lowLim,upLim,callback){
-	var sql = "SELECT * FROM qrent.Item where itemOwner = ? LIMIT ?,?;";
+exports.getItems = function(usr,lowLim,upLim,filter,callback){
 
 	var items = [];
 
-	conn.query(sql,[usr,parseInt(lowLim),parseInt(upLim)],(err,res,fields) => {
+	var filters = JSON.parse(filter);
+
+	var val = [usr];
+
+	var filterSql = "and (retStatus = ";
+	for(i in filters){
+		if(i < filters.length - 1){
+			filterSql += "?" + " OR retStatus = "; 
+		}else{
+			filterSql += "?)";
+		}
+		val.push(filters[i]);
+	}
+
+	val.push(parseInt(lowLim));
+	val.push(parseInt(upLim));
+
+
+	var sql = "SELECT * FROM qrent.Item where itemOwner = ? " + filterSql + " LIMIT ?,?";
+
+	conn.query(sql,val,(err,res,fields) => {
 		if(!err){
 			for(i in res){
 				items[i] = new Item(res[i]);
@@ -180,7 +199,7 @@ exports.getItems = function(usr,lowLim,upLim,callback){
 
 			for(i in items)((i) => {
 
-				conn.query(imgSql,[items[i].itemNumber],(err,res,fields) => {
+				conn.query(imgSql,val,(err,res,fields) => {
 					for(j in res){
 						items[i].images[j] = res[j].itemimageid;
 					}
@@ -236,5 +255,6 @@ function Item(row){
 	this.itemRentPrice = row.itemRentPrice;
 	this.itemNumber = row.itemno;
 	this.itemCondition = row.itemCondition;
+	this.status = row.retStatus;
 	this.images = [];
 }
