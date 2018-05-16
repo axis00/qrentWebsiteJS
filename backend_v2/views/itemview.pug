@@ -34,7 +34,18 @@ html
 				div.card-body#expand
 					h2.card-title(contenteditable="true") #{item.itemName}
 					//- itembrand dropdown
-					h5.card-text #{item.itemBrand} 
+					h5.card-text.brand #{item.itemBrand}
+					select.form-control#brand(name="brand")
+						option Cannon 
+						option Nikkon
+						option Pentax
+						option Sony 
+						option Olympus
+						option Fujifilm
+						option GoPro
+						option Leica
+						option Red 
+						option Others
 					p.card-text.editable #{item.itemDescription}
 					div.container
 						div.row
