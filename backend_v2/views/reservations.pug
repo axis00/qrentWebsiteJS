@@ -3,6 +3,7 @@ html
 	head
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
 		script(src='../scripts/f_reservation.js')
+		script(src='../styles/bootstrap/dist/js/bootstrap.min.js')
 		link(rel='stylesheet' type='text/css' href='../styles/bootstrap/dist/css/bootstrap.css')
 		link(rel='stylesheet' type='text/css' href='../styles/style.css')
 		title Reservations
@@ -10,7 +11,7 @@ html
 	body
 
 		include header.pug
-		+header({'Logout' : '/logout','Console' : '/console','Post Item' : '/postItem'})
+		+header({'Console' : '/console','Post Item' : '/postItem'})
 
 		h1 Client Reservations
 

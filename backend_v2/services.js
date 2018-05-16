@@ -218,6 +218,39 @@ exports.getItems = function(usr,lowLim,upLim,filter,callback){
 
 }
 
+exports.getItem = function(itemid,callback){
+
+	var sql = "SELECT * FROM qrent.Item where itemno = ?";
+
+	conn.query(sql,[parseInt(itemid)],(err,res,fields) => {
+		if(!err){
+			var itm = new Item(res[0]);
+
+			var imgSql = "SELECT itemimageid FROM qrent.ItemImage WHERE itemno = ?";
+
+			conn.query(imgSql,[itm.itemNumber],(e,r,f) => {
+				if(!e){
+
+					for(i in r){
+						itm.images[i] = r[i].itemimageid;
+					}
+
+					callback(null,itm);
+				
+				}else{
+					callback(e);
+				}
+
+			});
+
+		}else{
+			console.log(err);
+			callback(err);
+		}
+	});
+
+}
+
 exports.auth = function(user,password,callback){
 	var sql = "SELECT password,status FROM qrent.users WHERE username = ?"
 

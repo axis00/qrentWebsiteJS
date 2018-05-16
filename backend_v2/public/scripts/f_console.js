@@ -52,6 +52,7 @@ function loaditems(lower,upper,filter) {
             for(var i = 0; i < data.length; i++){
                 var itemCont = $('<div class="jumbotron">');
                 var imgCont = $('<div>');
+                var itemLink = $('<a class = "qrent-link">');
                 var itemNameTitle = $('<h2 class="card-title">');
                 var itemDescTitle = $('<h7 class="card-text">');
                 var itemBrandTitle = $('<p>');
@@ -83,13 +84,15 @@ function loaditems(lower,upper,filter) {
                                  );
                 deleteForm.attr('class', 'deleteForm');
 
+                itemLink.attr('href','/item?id='+ data[i].itemNumber);
                 itemNameTitle.html(data[i].itemName);
                 itemDescTitle.html(data[i].itemDescription);
                 itemBrandTitle.html(data[i].itemBrand);
                 itemRPTitle.html(data[i].itemRentPrice + " PHP / Day");
                 itemStatus.html(data[i].status);
                 
-                itemCont.append(itemNameTitle);
+                itemLink.append(itemNameTitle);
+                itemCont.append(itemLink);
                 itemCont.append(itemRPTitle);
                 itemCont.append(itemStatus);
                 itemCont.append($('<br/>'));

@@ -3,8 +3,16 @@ mixin header(links)
 		nav.navbar.navbar-expand-lg.navbar-light
 			a.navbar-brand(href='/')
 				h1 Qrent
-			ul.nav.navbar-nav.navbar-right
-				each link , label in links
-					li.nav-item
-						a.nav-link(href=link) #{label}
+			button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarCont" aria-controls="navbarCont" aria-expanded="false" aria-label="Toggle navigation")
+				span.navbar-toggler-icon
+			
+			div.collapse.navbar-collapse#navbarCont
+				ul.navbar-nav.mr-auto
+					each link , label in links
+						li.nav-item
+							a.nav-link(href=link) #{label}
+				span
+					ul.navbar-nav.mr-auto
+						li.nav-item
+							a.nav-link(href='/logout') Logout
 	

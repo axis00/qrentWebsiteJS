@@ -83,6 +83,18 @@ app.post('/login',(request,response) => {
 	}
 });
 
+app.get('/item',(request,response) => {
+
+	services.getItem(request.query.id,(err,res)=>{
+
+		console.log(res.images[0]);
+
+		response.render('itemview', { item : res });
+
+	});
+
+});
+
 app.get('/logout', (request,response) => {
 	request.session.destroy();
 	response.redirect('/');

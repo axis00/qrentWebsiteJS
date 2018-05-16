@@ -1,0 +1,47 @@
+doctype html
+html
+	head
+		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+		script(src='../styles/bootstrap/dist/js/bootstrap.min.js')
+		link(rel='stylesheet' type='text/css' href='../styles/bootstrap/dist/css/bootstrap.css')
+		link(rel='stylesheet' type='text/css' href='../styles/style.css')
+		title Reservations
+		link(rel="icon" href="/qrent-logo.png")
+	body
+		include header.pug
+		+header({'Console' : '/console','Reservations' : '/console/reservations','Post Item' : '/postItem'})
+		h1 Item View
+		div.container
+			div.card
+				div.card-img-top( style = "height : 30rem; overflow : hidden")
+					div#carouselControls.carousel.slide(data-ride="carousel" style="height : 100%")
+						div.carousel-inner(style="height : 100%")
+							each id, index in item.images
+								if index == 0
+									div.carousel-item.active
+										img.card-img-top(src = "/itemimage?i=" + id)
+								else
+									div.carousel-item
+										img.card-img-top(src = "/itemimage?i=" + id)
+						a.carousel-control-prev(href="#carouselControls" role="button" data-slide="prev")
+							span.carousel-control-prev-icon(aria-hidden="true")
+							span.sr-only Previous
+						a.carousel-control-next(href="#carouselControls" role="button" data-slide="next")
+							span.carousel-control-next-icon(aria-hidden="true")
+							span.sr-only Next
+
+				div.card-body
+					h2.card-title(contenteditable="true") #{item.itemName}
+					h5.card-text #{item.itemBrand}
+					p.card-text #{item.itemDescription}
+					div.container
+						div.row
+							div.col-lg-3
+								h7 sdaf
+							div.col-lg-3
+								h7 somhting
+							div.col-lg-3
+								h7 #{item.status}
+							div.col-lg-3
+
+

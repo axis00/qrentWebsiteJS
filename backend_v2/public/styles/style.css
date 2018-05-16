@@ -99,9 +99,17 @@ h1{
     color: wheat;
 }
 
+.qrent-link {
+    text-decoration: none;
+    color: #0B5351;
+}
+
+.qrent-link:hover {
+    text-decoration: none;
+    color: #0B5351;
+}
 
 .page-header li{
-    display: inline-block;
     border-radius: 2px;
     border: 1px solid #00000033;
     margin: 0 1rem;
@@ -228,13 +236,7 @@ textarea {
     text-align: center; 
 }
 
-.card{
-    margin: 0 auto;
-    display: block;
-    width: 100%;
-}
-
 .card-deck{
-    margin: 0 auto;
-    max-width: 50%;
+    max-width: 70rem;
+    padding: 1re
 }
