@@ -240,3 +240,18 @@ textarea {
     max-width: 70rem;
     padding: 1re
 }
+
+.card-title {
+    color: #37888e;
+}
+
+.card-body {
+    background-color:;
+}
+
+#expand {
+    background-color: #e9ecef;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-top: 1px solid black;
+}

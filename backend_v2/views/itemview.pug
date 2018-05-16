@@ -2,6 +2,7 @@ doctype html
 html
 	head
 		script(src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous")
+		script(src='../scripts/edit.js')
 		script(src='../styles/bootstrap/dist/js/bootstrap.min.js')
 		link(rel='stylesheet' type='text/css' href='../styles/bootstrap/dist/css/bootstrap.css')
 		link(rel='stylesheet' type='text/css' href='../styles/style.css')
@@ -30,18 +31,21 @@ html
 							span.carousel-control-next-icon(aria-hidden="true")
 							span.sr-only Next
 
-				div.card-body
+				div.card-body#expand
 					h2.card-title(contenteditable="true") #{item.itemName}
-					h5.card-text #{item.itemBrand}
-					p.card-text #{item.itemDescription}
+					//- itembrand dropdown
+					h5.card-text #{item.itemBrand} 
+					p.card-text.editable #{item.itemDescription}
 					div.container
 						div.row
+							div.col-lg-3 
+								h7.editable #{item.itemRentPrice} PHP / Day
 							div.col-lg-3
-								h7 sdaf
+								h7.editable #{item.Condition}
 							div.col-lg-3
-								h7 somhting
+								h7.editable #{item.status}
 							div.col-lg-3
-								h7 #{item.status}
-							div.col-lg-3
+							button.btn.btn-outline-primary(onclick="editable()") Edit
+							button.btn.btn-outline-primary Submit
 
 
