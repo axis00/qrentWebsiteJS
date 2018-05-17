@@ -228,6 +228,26 @@ app.post('/approveReservation',(request,response) => {
 
 });
 
+app.post('/returnItem',(request,response) => {
+
+	if(!request.session.user){
+		response.writeHead(401);
+		response.end();
+	}else{
+		services.returnItem(request.session.user,request.fields['itemToReturn'],(err) => {
+			if(err){
+				response.writeHead(404);
+				response.end();
+			}else{
+				response.writeHead(200,{'Content-Type' : 'text/plain'});
+				response.write('success');
+				response.end();
+			}
+		});
+	}
+
+});
+
 
 app.post('/cancelReservation',(request,response) => {
 

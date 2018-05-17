@@ -110,6 +110,22 @@ exports.addItem = function(usr,item,callback){
 	});
 }
 
+exports.returnItem = function(usr,id,callback){
+
+	sql = "UPDATE Item SET retStatus='returned' WHERE itemno = ?";
+
+	console.log('returning');
+
+	conn.query(sql,[id],(err,res,fields) => {
+		if(err){
+			callback(err);
+		}else{
+			callback(null);
+		}
+	});
+
+}
+
 exports.getItemImg = function(id,callback){
 	var sql = "SELECT * FROM qrent.ItemImage WHERE itemimageid = ?";
 

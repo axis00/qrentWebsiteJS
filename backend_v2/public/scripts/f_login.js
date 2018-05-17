@@ -1,4 +1,4 @@
-var homeurl = "http://qrent.com";
+var homeurl = "http://service.qrent.com";
 
 $(document).ready(function(){
 	
